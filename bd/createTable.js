@@ -1,15 +1,7 @@
 const Promise = require('bluebird');
-const AWS = require('aws-sdk');
-
-AWS.config.update({
-  region: 'eu-central-1',
-  endpoint: 'https://dynamodb.eu-central-1.amazonaws.com'
-});
-
-const dynamodb = new AWS.DynamoDB();
 
 const params = {
-  TableName: '',
+  TableName: 'Phones',
   AttributeDefinitions: [
     { AttributeName: 'id', AttributeType: 'N' },
     { AttributeName: 'manufacturer', AttributeType: 'S' }//,
@@ -39,8 +31,7 @@ const params = {
 };
 
 
-const createTable = function(tableName) {
-  params.TableName = tableName;
+const createTable = function(dynamodb) {
   return new Promise((resolve, reject) => {
     dynamodb.createTable(params, function(err, data) {
       if (err) {
