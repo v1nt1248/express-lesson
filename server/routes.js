@@ -2,30 +2,14 @@ const errors = require('./errors');
 const api = require('./api');
 
 module.exports = function(router) {
-  console.log(router);
   router.get('/api/create', api.createBD);
+  router.get('/api/delete', api.deleteBD);
 
-  router.get('/api/phone/:id', (req, res, next) => {
-    console.log(req.params.id);
-    res.status(200).send(
-      {
-        "error": false,
-        "message": `It's OK`,
-        "data": [{id: 0, phone: 'Samsung'}, {id: 1, phone: 'Apple'}]
-      }
-    );
-  });
-
+  router.get('/api/phone', api.getItem);
+  router.get('/api/phone/:id', api.getItem);
   router.get('/*', errors.error400);
 
-  router.post('/api/phone', (req, res, next) => {
-    console.log(req.body);
-    res.status(200).send(
-      {
-        "error": false,
-        "message": `It's OK`,
-        "data": []
-      }
-    );
-  });
+  router.post('/api/phone', api.addItem);
+  router.delete('/api/phone/:id', api.delItem);
+  router.put('/api/phone', api.updateItem);
 };
