@@ -15,7 +15,7 @@ exports.createBD = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to create table." + JSON.stringify(err, null, 2),
+          "message": "Unable to create table. " + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -37,7 +37,7 @@ exports.deleteBD = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to delete table" + JSON.stringify(err, null, 2),
+          "message": "Unable to delete table. " + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -69,7 +69,7 @@ exports.addItem = function(req, res, next) {
 
 exports.delItem = function(req, res, next) {
   const id = req.params.id;
-  bd.addTableItem(bd.table, id)
+  bd.delTableItem(bd.table, Number(id))
     .then(data => {
       res.status(200).send(
         {
@@ -83,7 +83,7 @@ exports.delItem = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to delete item." + JSON.stringify(err, null, 2),
+          "message": "Unable to delete item. " + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -115,7 +115,6 @@ exports.updateItem = function(req, res, next) {
 
 exports.getItem = function(req, res, next) {
   const id = req.params.id;
-  console.log(`GET. Params: ${id}`);
   bd.getTableItem(bd.table, id)
     .then(data => {
       res.status(200).send(
@@ -130,7 +129,7 @@ exports.getItem = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to get data." + JSON.stringify(err, null, 2),
+          "message": err,
           "data": null
         }
       );

@@ -7,7 +7,10 @@ const routes = require('./routes');
 
 const run = () => {
   app.use(function(req, res, next) {
+    // console.log(`CORS. Method: ${req.method}`);
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", ['OPTIONS', 'GET', 'POST', 'PUT', 'DELETE']);
+    res.header("Allow", "GET,HEAD,POST,PUT,DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });

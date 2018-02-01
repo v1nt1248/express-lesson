@@ -12,7 +12,7 @@ const createTable = require('./tableCreate');
 const deleteTable = require('./tableDelete');
 const addTableItem = require('./tableItemAdd');
 const delTableItem = require('./tableItemDel');
-const updateTableItem = require('./tableItemDel');
+const updateTableItem = require('./tableItemUpdate');
 const getTableItem = require('./tableItemGet');
 
 exports.dataBase = dynamodb;
