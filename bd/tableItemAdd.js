@@ -19,9 +19,11 @@ const addTableItem = function(docClient, phone) {
       if (err) {
         reject(err);
       } else {
-        const lastItem = data.Items.reduce((max, item) => {
-          return (item.id > max) ? item : max;
-        });
+        const lastItem = data.Items.length === 0 
+          ? {id: 0}
+          : data.Items.reduce((max, item) => {
+              return (item.id > max) ? item : max;
+            });
         phone.id = lastItem.id + 1;
         params.Item = phone;
         docClient.put(params, function(err, data) {
