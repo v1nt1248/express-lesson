@@ -3,9 +3,9 @@ const Promise = require('bluebird');
 const updateTableItem = function(docClient, item) {
   const queryParams = {
     TableName: 'Phones',
-    KeyConditionExpression: 'id = :id',
+    KeyConditionExpression: 'id = :val',
     ExpressionAttributeValues: {
-      ':id': item.id
+      ':val': item.id
     }
   };
 
@@ -20,14 +20,15 @@ const updateTableItem = function(docClient, item) {
           const params = {
             TableName: 'Phones',
             Key: {
-              'id': item.id,
-              'manufacturer': item.manufacturer
+              'id': item.id
             },
             ExpressionAttributeNames:{
               "#yr": "year"
             },
-            UpdateExpression: 'set #yr = :yr, photo = :photo, os = :os, screenSize = :screenSize, screenResolution = :screenResolution, ram = :ram, flashMemory = :flashMemory',
+            UpdateExpression: 'set manufacturer = :manufacturer, model = :model, #yr = :yr, photo = :photo, os = :os, screenSize = :screenSize, screenResolution = :screenResolution, ram = :ram, flashMemory = :flashMemory',
             ExpressionAttributeValues: {
+              ':manufacturer': item.manufacturer,
+              ':model': item.model,
               ':yr': item.year,
               ':photo': item.photo,
               ':os': item.os,
@@ -37,7 +38,7 @@ const updateTableItem = function(docClient, item) {
               ':flashMemory': item.flashMemory
             },
             ReturnValues: 'UPDATED_NEW'
-          };
+          }
           // console.log(params);
           docClient.update(params, function(err, data) {
             if (err) {

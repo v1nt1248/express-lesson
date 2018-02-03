@@ -1,14 +1,14 @@
 const Promise = require('bluebird');
 
-const scanParams = {
-  TableName: 'Phones',
-  FilterExpression: 'id > :from',
-  ExpressionAttributeValues: {
-    ':from': 0
-  }
-};
-
 const getTableItem = function(docClient, id) {
+  const scanParams = {
+    TableName: 'Phones',
+    FilterExpression: 'id > :val',
+    ExpressionAttributeValues: {
+      ':val': 0
+    }
+  };
+
   return new Promise((resolve, reject) => {
     docClient.scan(scanParams, function (err, data) {
       if (err) {

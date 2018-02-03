@@ -3,19 +3,16 @@ const Promise = require('bluebird');
 const params = {
   TableName: 'Phones',
   AttributeDefinitions: [
-    { AttributeName: 'id', AttributeType: 'N' },
-    { AttributeName: 'manufacturer', AttributeType: 'S' }
+    { AttributeName: 'id', AttributeType: 'N' }
   ],
   KeySchema: [
-    { AttributeName: 'id', KeyType: 'HASH' },
-    { AttributeName: 'manufacturer', KeyType: 'RANGE' }
+    { AttributeName: 'id', KeyType: 'HASH' }
   ],
   ProvisionedThroughput: {
-    ReadCapacityUnits: 2,
-    WriteCapacityUnits: 2
+    ReadCapacityUnits: 1,
+    WriteCapacityUnits: 1
   }
 };
-
 
 const createTable = function(dynamodb) {
   return new Promise((resolve, reject) => {

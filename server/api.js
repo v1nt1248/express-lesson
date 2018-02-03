@@ -15,7 +15,7 @@ exports.createBD = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to create table. " + JSON.stringify(err, null, 2),
+          "message": "Unable to create table.\n" + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -37,7 +37,7 @@ exports.deleteBD = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to delete table. " + JSON.stringify(err, null, 2),
+          "message": "Unable to delete table.\n" + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -60,7 +60,7 @@ exports.addItem = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to add item." + JSON.stringify(err, null, 2),
+          "message": "Unable to add item.\n" + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -83,7 +83,7 @@ exports.delItem = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to delete item. " + JSON.stringify(err, null, 2),
+          "message": "Unable to delete item.\n" + JSON.stringify(err, null, 2),
           "data": null
         }
       );
@@ -106,7 +106,7 @@ exports.updateItem = function(req, res, next) {
       res.status(500).send(
         {
           "error": true,
-          "message": "Unable to update item." + JSON.stringify(err, null, 2),
+          "message": "Unable to update item.\n" + JSON.stringify(err, null, 2),
           "data": null
         }
       );

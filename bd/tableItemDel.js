@@ -1,20 +1,14 @@
 const Promise = require('bluebird');
 
-const params = {
-  TableName: 'Phones',
-  Key: {}
-};
-
-const scanParams = {
-  TableName: 'Phones',
-  FilterExpression: 'id > :from',
-  ExpressionAttributeValues: {
-    ':from': 0
-  }
-};
-
 const delTableItem = function(docClient, id) {
   // console.log(`Delete item with id ${id}`);
+  const scanParams = {
+    TableName: 'Phones',
+    FilterExpression: 'id > :val',
+    ExpressionAttributeValues: {
+      ':val': 0
+    }
+  };
   return new Promise((resolve, reject) => {
     docClient.scan(scanParams, function(err, data) {
       if (err) {
@@ -22,9 +16,11 @@ const delTableItem = function(docClient, id) {
       } else {
         const removableItem = data.Items.find(item => item.id === id);
         if (removableItem) {
-          params.Key = {
-            'id': removableItem.id,
-            'manufacturer': removableItem.manufacturer
+          const params = {
+            TableName: 'Phones',
+            Key: {
+              'id': removableItem.id
+            }
           };
           docClient.delete(params, function (err, data) {
             if (err) {

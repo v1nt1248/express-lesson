@@ -1,19 +1,13 @@
 const Promise = require('bluebird');
 
-const params = {
-  TableName: 'Phones',
-  Item: {}
-};
-
-const scanParams = {
-  TableName: 'Phones',
-  FilterExpression: 'id > :from',
-  ExpressionAttributeValues: {
-    ':from': 0
-  }
-};
-
 const addTableItem = function(docClient, phone) {
+  const scanParams = {
+    TableName: 'Phones',
+    FilterExpression: 'id > :val',
+    ExpressionAttributeValues: {
+      ':val': 0
+    }
+  };
   return new Promise((resolve, reject) => {
     docClient.scan(scanParams, function(err, data) {
       if (err) {
@@ -25,7 +19,10 @@ const addTableItem = function(docClient, phone) {
               return (item.id > max) ? item : max;
             });
         phone.id = lastItem.id + 1;
-        params.Item = phone;
+        const params = {
+          TableName: 'Phones',
+          Item: phone
+        };
         docClient.put(params, function(err, data) {
           if (err) {
             reject(err);
