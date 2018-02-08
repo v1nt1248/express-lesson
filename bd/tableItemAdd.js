@@ -19,6 +19,11 @@ const addTableItem = function(docClient, phone) {
               return (item.id > max) ? item : max;
             });
         phone.id = lastItem.id + 1;
+        for (const key of Object.keys(phone)) {
+          if (!phone[key]) {
+            delete phone[key]
+          }
+        }
         const params = {
           TableName: 'Phones',
           Item: phone

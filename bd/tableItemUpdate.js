@@ -40,11 +40,11 @@ const updateTableItem = function(docClient, item) {
             ReturnValues: 'UPDATED_NEW'
           }
           // console.log(params);
-          docClient.update(params, function(err, data) {
+          docClient.update(params, function(err, reply) {
             if (err) {
               reject(err);
             } else {
-              resolve(data);
+              resolve(item);
             }
           });
         }

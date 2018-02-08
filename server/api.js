@@ -46,6 +46,7 @@ exports.deleteBD = function(req, res, next) {
 
 exports.addItem = function(req, res, next) {
   const data = req.body;
+  console.log(data)
   bd.addTableItem(bd.table, data)
     .then(data => {
       res.status(200).send(
@@ -93,12 +94,12 @@ exports.delItem = function(req, res, next) {
 exports.updateItem = function(req, res, next) {
   const data = req.body;
   bd.updateTableItem(bd.table, data)
-    .then(data => {
+    .then(reply => {
       res.status(200).send(
         {
           "error": false,
           "message": "Update item succeeded",
-          "data": data
+          "data": reply
         }
       );
     })
